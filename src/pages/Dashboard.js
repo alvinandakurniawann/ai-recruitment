@@ -67,11 +67,11 @@ const Dashboard = () => {
   const getExperienceDistributionData = () => {
     if (!analytics?.experience_distribution) return null;
     
-    const ranges = ['0-2', '3-5', '6-10', '11-15', '16+'];
+    const ranges = ['0-2 years', '3-5 years', '6-10 years', '11-15 years', '16+ years'];
     const data = ranges.map(range => analytics.experience_distribution[range] || 0);
     
     return {
-      labels: ranges.map(r => `${r} years`),
+      labels: ranges,
       datasets: [
         {
           label: 'Number of Candidates',

@@ -21,3 +21,15 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Documentation files (private)
+ML_EXPLANATION.md
+DATABASE_SCHEMA.md
+DATABASE_ERD.md
+AI_MODEL_EXPLANATION.md
+IMPLEMENTATION_REVIEW.md
+DATABASE_DEPLOYMENT_GUIDE.md
+CLEANUP_REPORT.md
+
+# PDF files
+*.pdf
