@@ -4,13 +4,48 @@
 
 Platform rekrutmen berbasis kecerdasan buatan untuk otomatisasi screening CV, pencocokan kandidat, dan manajemen posisi pekerjaan.
 
-**English** | [Bahasa Indonesia](#)
+</div>
+
+---
+
+<input type="radio" id="lang-en-radio" name="language" checked style="display: none;">
+<input type="radio" id="lang-id-radio" name="language" style="display: none;">
+
+<div align="center">
+
+<label for="lang-en-radio" style="cursor: pointer; margin-right: 20px; padding: 8px 16px; border: 2px solid #0366d6; border-radius: 5px; background: #0366d6; color: white; font-weight: bold;">English</label>
+
+<label for="lang-id-radio" style="cursor: pointer; padding: 8px 16px; border: 2px solid #0366d6; border-radius: 5px; background: #f6f8fa; color: #0366d6;">Bahasa Indonesia</label>
 
 </div>
 
 ---
 
-<div id="lang-en" style="display: block;">
+<style>
+#lang-en-section {
+    display: block;
+}
+#lang-id-section {
+    display: none;
+}
+#lang-en-radio:checked ~ * #lang-en-section {
+    display: block !important;
+}
+#lang-en-radio:checked ~ * #lang-id-section {
+    display: none !important;
+}
+#lang-id-radio:checked ~ * #lang-en-section {
+    display: none !important;
+}
+#lang-id-radio:checked ~ * #lang-id-section {
+    display: block !important;
+}
+label:hover {
+    opacity: 0.8;
+}
+</style>
+
+<div id="lang-en-section">
 
 ## Overview
 
@@ -352,7 +387,7 @@ This project is licensed under the MIT License.
 
 </div>
 
-<div id="lang-id" style="display: none;">
+<div id="lang-id-section">
 
 ## Ringkasan
 
@@ -693,42 +728,3 @@ Kontribusi dipersilakan. Silakan kirim Pull Request.
 Project ini dilisensikan di bawah MIT License.
 
 </div>
-
-<script>
-function switchLanguage(lang) {
-    const enDiv = document.getElementById('lang-en');
-    const idDiv = document.getElementById('lang-id');
-    const enLink = document.querySelector('a[href="#"]');
-    const idLink = document.querySelector('a[href="#"]').nextElementSibling || document.querySelector('a[href="#"]');
-    
-    if (lang === 'en') {
-        enDiv.style.display = 'block';
-        idDiv.style.display = 'none';
-        if (enLink) enLink.textContent = 'English';
-        if (idLink && idLink.tagName === 'A') idLink.textContent = 'Bahasa Indonesia';
-    } else {
-        enDiv.style.display = 'none';
-        idDiv.style.display = 'block';
-        if (enLink) enLink.textContent = 'English';
-        if (idLink && idLink.tagName === 'A') idLink.textContent = 'Bahasa Indonesia';
-    }
-}
-
-// Update links to be clickable
-document.addEventListener('DOMContentLoaded', function() {
-    const links = document.querySelectorAll('div[align="center"] a');
-    links.forEach(link => {
-        link.style.cursor = 'pointer';
-        link.style.textDecoration = 'underline';
-        link.style.color = '#0366d6';
-        link.onclick = function(e) {
-            e.preventDefault();
-            if (link.textContent.includes('English') || link.textContent === 'English') {
-                switchLanguage('en');
-            } else {
-                switchLanguage('id');
-            }
-        };
-    });
-});
-</script>
