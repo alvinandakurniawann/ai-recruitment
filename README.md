@@ -1,243 +1,734 @@
+<div align="center">
+
 # AI Recruitment System
 
-An intelligent recruitment platform that automates CV screening, candidate matching, and job position management using AI and machine learning.
+Platform rekrutmen berbasis kecerdasan buatan untuk otomatisasi screening CV, pencocokan kandidat, dan manajemen posisi pekerjaan.
 
-## Features
+**English** | [Bahasa Indonesia](#)
 
-- **CV Upload & Parsing**: Automatically extract information from PDF, DOCX, and TXT resumes
-- **Skill Analysis**: AI-powered skill extraction and categorization using NLP
-- **Smart Matching**: Match candidates to job positions using ML algorithms
-- **HR Dashboard**: Comprehensive analytics and candidate management interface
-- **Secure Authentication**: JWT-based authentication with role-based access control
+</div>
 
-## Tech Stack
+---
 
-**Frontend:**
-- React 19.2
-- React Router
-- Axios
-- Chart.js
+<div id="lang-en" style="display: block;">
 
-**Backend:**
-- Python 3.9+ / Flask
-- SQLAlchemy (PostgreSQL/SQLite)
-- spaCy (NLP)
-- scikit-learn (ML)
+## Overview
 
-## Getting Started with Create React App
+AI Recruitment System is a web-based platform designed to streamline the hiring process for HR departments. The system leverages natural language processing and machine learning algorithms to automatically extract information from candidate resumes, analyze skills, and match candidates to job positions based on compatibility scores.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The platform consists of a React-based frontend and a Flask backend API, with integrated ML components for document processing and candidate matching. It provides a comprehensive dashboard for HR users to manage candidates, job postings, and view analytics.
 
-## Available Scripts
+## Key Features
 
-In the project directory, you can run:
+**Document Processing**
+- Upload and parse CV documents in PDF, DOCX, and TXT formats
+- Automatic extraction of candidate information including personal details, education, work experience, and skills
+- Text analysis using NLP to identify and categorize technical and soft skills
 
-### `npm start`
+**Intelligent Matching**
+- Machine learning-based algorithm to calculate compatibility scores between candidates and job positions
+- Multi-factor matching considering skills, experience, education, and job requirements
+- Ranking system to prioritize the most suitable candidates
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**Candidate Management**
+- Centralized database of all candidates with search and filter capabilities
+- Detailed candidate profiles with extracted information and match scores
+- CV file storage and management
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**Job Position Management**
+- Create and manage job postings with detailed requirements
+- Define required skills, experience levels, and qualifications
+- Track applications and matches for each position
 
-### `npm test`
+**Analytics Dashboard**
+- Overview statistics including total candidates, job positions, and matches
+- Visual charts and graphs for data analysis
+- Performance metrics and insights
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Security**
+- JWT-based authentication system
+- Role-based access control
+- Secure file upload and storage
 
-### `npm run build`
+## Technology Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Frontend**
+- React 19.2 - UI framework
+- React Router - Navigation and routing
+- Axios - HTTP client for API communication
+- Chart.js - Data visualization
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Backend**
+- Python 3.9+ - Programming language
+- Flask - Web framework
+- SQLAlchemy - ORM for database operations
+- PostgreSQL / SQLite - Database systems
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Machine Learning & NLP**
+- spaCy - Natural language processing
+- scikit-learn - Machine learning algorithms
+- TF-IDF and cosine similarity for text matching
 
-### `npm run eject`
+**Additional Libraries**
+- PyPDF2 - PDF document parsing
+- python-docx - DOCX document parsing
+- Flask-JWT-Extended - Authentication
+- Flask-CORS - Cross-origin resource sharing
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-
-## Local Development Setup
+## Getting Started
 
 ### Prerequisites
 
-- Node.js 16+ and npm
-- Python 3.9+
-- pip
+Before you begin, ensure you have the following installed:
+- Node.js (version 16 or higher)
+- npm (comes with Node.js)
+- Python (version 3.9 or higher)
+- pip (Python package manager)
 
-### Frontend Setup
+### Installation
 
-1. Install dependencies:
+**1. Clone the repository**
+
+```bash
+git clone https://github.com/alvinandakurniawann/ai-recruitment.git
+cd ai-recruitment
+```
+
+**2. Frontend Setup**
+
+Navigate to the project root and install dependencies:
+
 ```bash
 npm install
 ```
 
-2. Create `.env` file from example:
+Create a `.env` file in the root directory:
+
 ```bash
 cp .env.example .env
 ```
 
-3. Update `.env` with your backend URL:
+Edit `.env` and set your backend API URL:
+
 ```
 REACT_APP_API_URL=http://localhost:5000
 ```
 
-4. Start the development server:
+Start the development server:
+
 ```bash
 npm start
 ```
 
-The frontend will run on [http://localhost:3000](http://localhost:3000)
+The frontend will be available at `http://localhost:3000`
 
-### Backend Setup
+**3. Backend Setup**
 
-1. Navigate to backend directory:
+Navigate to the backend directory:
+
 ```bash
 cd backend
 ```
 
-2. Create virtual environment:
+Create a virtual environment:
+
 ```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-3. Install dependencies:
+Activate the virtual environment:
+- Windows: `venv\Scripts\activate`
+- Linux/Mac: `source venv/bin/activate`
+
+Install Python dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Download spaCy model:
+Download the spaCy language model:
+
 ```bash
 python -m spacy download en_core_web_sm
 ```
 
-5. Create `.env` file from example:
+Create a `.env` file in the backend directory:
+
 ```bash
 cp .env.example .env
 ```
 
-6. Initialize database:
-```bash
-python init_db.py
-```
+Edit `backend/.env` with your configuration:
 
-7. Run the development server:
-```bash
-python app.py
-```
-
-The backend will run on [http://localhost:5000](http://localhost:5000)
-
-## Deployment
-
-See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions for both frontend and backend.
-
-### Quick Deployment Links
-
-- **Frontend (Vercel)**: [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/ai-recruitment)
-- **Backend (Render)**: Use `render.yaml` for one-click deployment
-- **Backend (Railway)**: Use `railway.json` for one-click deployment
-
-## Project Structure
-
-```
-ai-recruitment/
-├── backend/                 # Flask backend
-│   ├── models/             # Database models
-│   ├── services/           # Business logic
-│   ├── ml/                 # ML components
-│   ├── routes/             # API endpoints
-│   ├── utils/              # Helper functions
-│   ├── app.py              # Application entry point
-│   ├── config.py           # Configuration
-│   └── requirements.txt    # Python dependencies
-├── src/                    # React frontend
-│   ├── components/         # Reusable components
-│   ├── pages/              # Page components
-│   ├── services/           # API services
-│   ├── context/            # React context
-│   └── App.js              # Main app component
-├── public/                 # Static assets
-└── package.json            # Node dependencies
-```
-
-## API Documentation
-
-The backend API provides the following endpoints:
-
-- `POST /api/auth/register` - User registration
-- `POST /api/auth/login` - User login
-- `POST /api/candidates/upload` - Upload CV
-- `GET /api/candidates` - List candidates
-- `GET /api/candidates/:id` - Get candidate details
-- `POST /api/jobs` - Create job position
-- `GET /api/jobs` - List job positions
-- `GET /api/jobs/:id` - Get job details
-- `POST /api/matching/calculate/:candidate_id` - Calculate matches
-- `GET /api/matching/job/:job_id` - Get candidates for job
-- `GET /api/dashboard/stats` - Dashboard statistics
-- `GET /api/dashboard/analytics` - Analytics data
-
-For detailed API documentation, see `backend/routes/README_*.md` files.
-
-## Environment Variables
-
-### Frontend (.env)
-```
-REACT_APP_API_URL=http://localhost:5000
-```
-
-### Backend (backend/.env)
 ```
 FLASK_ENV=development
-SECRET_KEY=your-secret-key
-JWT_SECRET_KEY=your-jwt-secret-key
+SECRET_KEY=your-random-secret-key-here
+JWT_SECRET_KEY=your-random-jwt-secret-key-here
 DATABASE_URL=sqlite:///recruitment.db
 MAX_FILE_SIZE=5242880
 UPLOAD_FOLDER=uploads
 CORS_ORIGINS=http://localhost:3000
 ```
 
+Initialize the database:
+
+```bash
+python init_db.py
+```
+
+Run the backend server:
+
+```bash
+python app.py
+```
+
+The backend API will be available at `http://localhost:5000`
+
+## Project Structure
+
+```
+ai-recruitment/
+├── backend/
+│   ├── models/              # Database models (SQLAlchemy)
+│   │   ├── candidate.py
+│   │   ├── job_position.py
+│   │   ├── match_result.py
+│   │   └── user.py
+│   ├── services/            # Business logic layer
+│   │   ├── candidate_service.py
+│   │   ├── cv_parser_service.py
+│   │   ├── job_service.py
+│   │   └── matching_service.py
+│   ├── ml/                  # Machine learning components
+│   │   ├── matching_engine.py
+│   │   ├── skill_analyzer.py
+│   │   └── text_extractor.py
+│   ├── routes/              # API endpoints
+│   │   ├── auth_routes.py
+│   │   ├── candidate_routes.py
+│   │   ├── job_routes.py
+│   │   ├── matching_routes.py
+│   │   └── dashboard_routes.py
+│   ├── utils/               # Helper functions
+│   │   ├── auth_decorators.py
+│   │   ├── db_init.py
+│   │   └── file_validators.py
+│   ├── uploads/             # Uploaded CV files
+│   ├── app.py               # Flask application entry point
+│   ├── config.py            # Configuration settings
+│   ├── init_db.py           # Database initialization
+│   └── requirements.txt     # Python dependencies
+├── src/
+│   ├── components/          # Reusable React components
+│   │   ├── Login.js
+│   │   ├── Register.js
+│   │   ├── Navbar.js
+│   │   └── ProtectedRoute.js
+│   ├── pages/               # Page components
+│   │   ├── Dashboard.js
+│   │   ├── CandidateList.js
+│   │   ├── CandidateDetail.js
+│   │   ├── JobList.js
+│   │   ├── JobForm.js
+│   │   ├── JobDetail.js
+│   │   └── UploadCV.js
+│   ├── services/            # API service functions
+│   │   ├── api.js
+│   │   ├── authAPI.js
+│   │   ├── candidateAPI.js
+│   │   ├── jobAPI.js
+│   │   └── dashboardAPI.js
+│   ├── context/            # React context providers
+│   │   └── AuthContext.js
+│   ├── App.js              # Main application component
+│   └── index.js            # Application entry point
+├── public/                 # Static assets
+└── package.json           # Node.js dependencies
+```
+
+## API Documentation
+
+The backend provides a RESTful API with the following endpoints:
+
+### Authentication
+- `POST /api/auth/register` - Register a new user account
+- `POST /api/auth/login` - Authenticate and receive JWT token
+- `POST /api/auth/refresh` - Refresh JWT token
+
+### Candidates
+- `POST /api/candidates/upload` - Upload a CV file for processing
+- `GET /api/candidates` - Retrieve list of all candidates
+- `GET /api/candidates/:id` - Get detailed information about a specific candidate
+- `DELETE /api/candidates/:id` - Remove a candidate from the system
+
+### Job Positions
+- `POST /api/jobs` - Create a new job posting
+- `GET /api/jobs` - Retrieve list of all job positions
+- `GET /api/jobs/:id` - Get detailed information about a specific job
+- `PUT /api/jobs/:id` - Update an existing job posting
+- `DELETE /api/jobs/:id` - Remove a job posting
+
+### Matching
+- `POST /api/matching/calculate/:candidate_id` - Calculate match scores for a candidate against all jobs
+- `GET /api/matching/job/:job_id` - Get all candidates matched to a specific job with scores
+
+### Dashboard
+- `GET /api/dashboard/stats` - Get overview statistics
+- `GET /api/dashboard/analytics` - Get analytics data for charts
+
+All endpoints require JWT authentication except for registration and login.
+
+## Environment Variables
+
+### Frontend (.env)
+
+```
+REACT_APP_API_URL=http://localhost:5000
+```
+
+### Backend (backend/.env)
+
+```
+FLASK_ENV=development
+SECRET_KEY=your-secret-key-here
+JWT_SECRET_KEY=your-jwt-secret-key-here
+DATABASE_URL=sqlite:///recruitment.db
+MAX_FILE_SIZE=5242880
+UPLOAD_FOLDER=uploads
+CORS_ORIGINS=http://localhost:3000
+```
+
+For production, use PostgreSQL and set appropriate CORS origins.
+
+## Deployment
+
+The application can be deployed using various free hosting services:
+
+**Frontend**
+- Vercel (recommended) - Automatic deployments from GitHub
+- Netlify - Similar to Vercel with good free tier
+
+**Backend**
+- Render.com - Free tier available with PostgreSQL
+- Railway.app - $5 free credit per month
+- PythonAnywhere - Free tier for Python applications
+
+**Database**
+- Render PostgreSQL (free tier)
+- Railway PostgreSQL (included with Railway)
+- Supabase (free tier available)
+
+See the deployment documentation for detailed setup instructions.
+
+## Development
+
+### Running Tests
+
+```bash
+# Frontend tests
+npm test
+
+# Backend tests (when implemented)
+cd backend
+pytest
+```
+
+### Building for Production
+
+```bash
+# Frontend build
+npm run build
+
+# The build folder will contain optimized production files
+```
+
+## Contributing
+
+Contributions are welcome. Please feel free to submit a Pull Request.
+
 ## License
 
 This project is licensed under the MIT License.
+
+</div>
+
+<div id="lang-id" style="display: none;">
+
+## Ringkasan
+
+AI Recruitment System adalah platform berbasis web yang dirancang untuk menyederhanakan proses rekrutmen bagi departemen HR. Sistem ini memanfaatkan natural language processing dan algoritma machine learning untuk secara otomatis mengekstrak informasi dari resume kandidat, menganalisis keterampilan, dan mencocokkan kandidat dengan posisi pekerjaan berdasarkan skor kompatibilitas.
+
+Platform terdiri dari frontend berbasis React dan backend API Flask, dengan komponen ML terintegrasi untuk pemrosesan dokumen dan pencocokan kandidat. Sistem menyediakan dashboard komprehensif untuk pengguna HR untuk mengelola kandidat, lowongan pekerjaan, dan melihat analitik.
+
+## Fitur Utama
+
+**Pemrosesan Dokumen**
+- Upload dan parsing dokumen CV dalam format PDF, DOCX, dan TXT
+- Ekstraksi otomatis informasi kandidat termasuk data pribadi, pendidikan, pengalaman kerja, dan keterampilan
+- Analisis teks menggunakan NLP untuk mengidentifikasi dan mengkategorikan keterampilan teknis dan soft skills
+
+**Pencocokan Cerdas**
+- Algoritma berbasis machine learning untuk menghitung skor kompatibilitas antara kandidat dan posisi pekerjaan
+- Pencocokan multi-faktor yang mempertimbangkan keterampilan, pengalaman, pendidikan, dan persyaratan pekerjaan
+- Sistem peringkat untuk memprioritaskan kandidat yang paling sesuai
+
+**Manajemen Kandidat**
+- Database terpusat dari semua kandidat dengan kemampuan pencarian dan filter
+- Profil kandidat detail dengan informasi yang diekstrak dan skor kecocokan
+- Penyimpanan dan manajemen file CV
+
+**Manajemen Posisi Pekerjaan**
+- Membuat dan mengelola lowongan pekerjaan dengan persyaratan detail
+- Mendefinisikan keterampilan yang dibutuhkan, tingkat pengalaman, dan kualifikasi
+- Melacak aplikasi dan kecocokan untuk setiap posisi
+
+**Dashboard Analitik**
+- Statistik ringkasan termasuk total kandidat, posisi pekerjaan, dan kecocokan
+- Grafik dan diagram visual untuk analisis data
+- Metrik kinerja dan wawasan
+
+**Keamanan**
+- Sistem autentikasi berbasis JWT
+- Kontrol akses berbasis peran
+- Upload dan penyimpanan file yang aman
+
+## Teknologi yang Digunakan
+
+**Frontend**
+- React 19.2 - Framework UI
+- React Router - Navigasi dan routing
+- Axios - HTTP client untuk komunikasi API
+- Chart.js - Visualisasi data
+
+**Backend**
+- Python 3.9+ - Bahasa pemrograman
+- Flask - Web framework
+- SQLAlchemy - ORM untuk operasi database
+- PostgreSQL / SQLite - Sistem database
+
+**Machine Learning & NLP**
+- spaCy - Natural language processing
+- scikit-learn - Algoritma machine learning
+- TF-IDF dan cosine similarity untuk pencocokan teks
+
+**Library Tambahan**
+- PyPDF2 - Parsing dokumen PDF
+- python-docx - Parsing dokumen DOCX
+- Flask-JWT-Extended - Autentikasi
+- Flask-CORS - Cross-origin resource sharing
+
+## Memulai
+
+### Prasyarat
+
+Sebelum memulai, pastikan Anda telah menginstal:
+- Node.js (versi 16 atau lebih tinggi)
+- npm (termasuk dengan Node.js)
+- Python (versi 3.9 atau lebih tinggi)
+- pip (package manager Python)
+
+### Instalasi
+
+**1. Clone repository**
+
+```bash
+git clone https://github.com/alvinandakurniawann/ai-recruitment.git
+cd ai-recruitment
+```
+
+**2. Setup Frontend**
+
+Masuk ke root project dan install dependencies:
+
+```bash
+npm install
+```
+
+Buat file `.env` di root directory:
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` dan set URL backend API Anda:
+
+```
+REACT_APP_API_URL=http://localhost:5000
+```
+
+Jalankan development server:
+
+```bash
+npm start
+```
+
+Frontend akan tersedia di `http://localhost:3000`
+
+**3. Setup Backend**
+
+Masuk ke direktori backend:
+
+```bash
+cd backend
+```
+
+Buat virtual environment:
+
+```bash
+python -m venv venv
+```
+
+Aktifkan virtual environment:
+- Windows: `venv\Scripts\activate`
+- Linux/Mac: `source venv/bin/activate`
+
+Install dependencies Python:
+
+```bash
+pip install -r requirements.txt
+```
+
+Download model bahasa spaCy:
+
+```bash
+python -m spacy download en_core_web_sm
+```
+
+Buat file `.env` di direktori backend:
+
+```bash
+cp .env.example .env
+```
+
+Edit `backend/.env` dengan konfigurasi Anda:
+
+```
+FLASK_ENV=development
+SECRET_KEY=kunci-rahasia-acak-anda
+JWT_SECRET_KEY=kunci-jwt-rahasia-acak-anda
+DATABASE_URL=sqlite:///recruitment.db
+MAX_FILE_SIZE=5242880
+UPLOAD_FOLDER=uploads
+CORS_ORIGINS=http://localhost:3000
+```
+
+Inisialisasi database:
+
+```bash
+python init_db.py
+```
+
+Jalankan server backend:
+
+```bash
+python app.py
+```
+
+Backend API akan tersedia di `http://localhost:5000`
+
+## Struktur Project
+
+```
+ai-recruitment/
+├── backend/
+│   ├── models/              # Model database (SQLAlchemy)
+│   │   ├── candidate.py
+│   │   ├── job_position.py
+│   │   ├── match_result.py
+│   │   └── user.py
+│   ├── services/            # Layer logika bisnis
+│   │   ├── candidate_service.py
+│   │   ├── cv_parser_service.py
+│   │   ├── job_service.py
+│   │   └── matching_service.py
+│   ├── ml/                  # Komponen machine learning
+│   │   ├── matching_engine.py
+│   │   ├── skill_analyzer.py
+│   │   └── text_extractor.py
+│   ├── routes/              # Endpoint API
+│   │   ├── auth_routes.py
+│   │   ├── candidate_routes.py
+│   │   ├── job_routes.py
+│   │   ├── matching_routes.py
+│   │   └── dashboard_routes.py
+│   ├── utils/               # Fungsi helper
+│   │   ├── auth_decorators.py
+│   │   ├── db_init.py
+│   │   └── file_validators.py
+│   ├── uploads/             # File CV yang diupload
+│   ├── app.py               # Entry point aplikasi Flask
+│   ├── config.py            # Pengaturan konfigurasi
+│   ├── init_db.py           # Inisialisasi database
+│   └── requirements.txt     # Dependencies Python
+├── src/
+│   ├── components/          # Komponen React yang dapat digunakan kembali
+│   │   ├── Login.js
+│   │   ├── Register.js
+│   │   ├── Navbar.js
+│   │   └── ProtectedRoute.js
+│   ├── pages/               # Komponen halaman
+│   │   ├── Dashboard.js
+│   │   ├── CandidateList.js
+│   │   ├── CandidateDetail.js
+│   │   ├── JobList.js
+│   │   ├── JobForm.js
+│   │   ├── JobDetail.js
+│   │   └── UploadCV.js
+│   ├── services/            # Fungsi layanan API
+│   │   ├── api.js
+│   │   ├── authAPI.js
+│   │   ├── candidateAPI.js
+│   │   ├── jobAPI.js
+│   │   └── dashboardAPI.js
+│   ├── context/             # Provider context React
+│   │   └── AuthContext.js
+│   ├── App.js              # Komponen aplikasi utama
+│   └── index.js            # Entry point aplikasi
+├── public/                 # Asset statis
+└── package.json           # Dependencies Node.js
+```
+
+## Dokumentasi API
+
+Backend menyediakan RESTful API dengan endpoint berikut:
+
+### Autentikasi
+- `POST /api/auth/register` - Mendaftarkan akun pengguna baru
+- `POST /api/auth/login` - Autentikasi dan menerima token JWT
+- `POST /api/auth/refresh` - Refresh token JWT
+
+### Kandidat
+- `POST /api/candidates/upload` - Upload file CV untuk diproses
+- `GET /api/candidates` - Mengambil daftar semua kandidat
+- `GET /api/candidates/:id` - Mendapatkan informasi detail tentang kandidat tertentu
+- `DELETE /api/candidates/:id` - Menghapus kandidat dari sistem
+
+### Posisi Pekerjaan
+- `POST /api/jobs` - Membuat lowongan pekerjaan baru
+- `GET /api/jobs` - Mengambil daftar semua posisi pekerjaan
+- `GET /api/jobs/:id` - Mendapatkan informasi detail tentang pekerjaan tertentu
+- `PUT /api/jobs/:id` - Memperbarui lowongan pekerjaan yang ada
+- `DELETE /api/jobs/:id` - Menghapus lowongan pekerjaan
+
+### Pencocokan
+- `POST /api/matching/calculate/:candidate_id` - Menghitung skor kecocokan untuk kandidat terhadap semua pekerjaan
+- `GET /api/matching/job/:job_id` - Mendapatkan semua kandidat yang cocok dengan pekerjaan tertentu beserta skornya
+
+### Dashboard
+- `GET /api/dashboard/stats` - Mendapatkan statistik ringkasan
+- `GET /api/dashboard/analytics` - Mendapatkan data analitik untuk grafik
+
+Semua endpoint memerlukan autentikasi JWT kecuali untuk registrasi dan login.
+
+## Variabel Environment
+
+### Frontend (.env)
+
+```
+REACT_APP_API_URL=http://localhost:5000
+```
+
+### Backend (backend/.env)
+
+```
+FLASK_ENV=development
+SECRET_KEY=kunci-rahasia-anda
+JWT_SECRET_KEY=kunci-jwt-rahasia-anda
+DATABASE_URL=sqlite:///recruitment.db
+MAX_FILE_SIZE=5242880
+UPLOAD_FOLDER=uploads
+CORS_ORIGINS=http://localhost:3000
+```
+
+Untuk production, gunakan PostgreSQL dan set CORS origins yang sesuai.
+
+## Deployment
+
+Aplikasi dapat di-deploy menggunakan berbagai layanan hosting gratis:
+
+**Frontend**
+- Vercel (direkomendasikan) - Deployment otomatis dari GitHub
+- Netlify - Mirip dengan Vercel dengan free tier yang baik
+
+**Backend**
+- Render.com - Free tier tersedia dengan PostgreSQL
+- Railway.app - $5 kredit gratis per bulan
+- PythonAnywhere - Free tier untuk aplikasi Python
+
+**Database**
+- Render PostgreSQL (free tier)
+- Railway PostgreSQL (termasuk dengan Railway)
+- Supabase (free tier tersedia)
+
+Lihat dokumentasi deployment untuk instruksi setup detail.
+
+## Development
+
+### Menjalankan Test
+
+```bash
+# Test frontend
+npm test
+
+# Test backend (ketika diimplementasikan)
+cd backend
+pytest
+```
+
+### Build untuk Production
+
+```bash
+# Build frontend
+npm run build
+
+# Folder build akan berisi file production yang dioptimalkan
+```
+
+## Kontribusi
+
+Kontribusi dipersilakan. Silakan kirim Pull Request.
+
+## Lisensi
+
+Project ini dilisensikan di bawah MIT License.
+
+</div>
+
+<script>
+function switchLanguage(lang) {
+    const enDiv = document.getElementById('lang-en');
+    const idDiv = document.getElementById('lang-id');
+    const enLink = document.querySelector('a[href="#"]');
+    const idLink = document.querySelector('a[href="#"]').nextElementSibling || document.querySelector('a[href="#"]');
+    
+    if (lang === 'en') {
+        enDiv.style.display = 'block';
+        idDiv.style.display = 'none';
+        if (enLink) enLink.textContent = 'English';
+        if (idLink && idLink.tagName === 'A') idLink.textContent = 'Bahasa Indonesia';
+    } else {
+        enDiv.style.display = 'none';
+        idDiv.style.display = 'block';
+        if (enLink) enLink.textContent = 'English';
+        if (idLink && idLink.tagName === 'A') idLink.textContent = 'Bahasa Indonesia';
+    }
+}
+
+// Update links to be clickable
+document.addEventListener('DOMContentLoaded', function() {
+    const links = document.querySelectorAll('div[align="center"] a');
+    links.forEach(link => {
+        link.style.cursor = 'pointer';
+        link.style.textDecoration = 'underline';
+        link.style.color = '#0366d6';
+        link.onclick = function(e) {
+            e.preventDefault();
+            if (link.textContent.includes('English') || link.textContent === 'English') {
+                switchLanguage('en');
+            } else {
+                switchLanguage('id');
+            }
+        };
+    });
+});
+</script>
