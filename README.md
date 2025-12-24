@@ -4,50 +4,17 @@
 
 Platform rekrutmen berbasis kecerdasan buatan untuk otomatisasi screening CV, pencocokan kandidat, dan manajemen posisi pekerjaan.
 
-</div>
-
----
-
-<input type="radio" id="lang-en-radio" name="language" checked style="display: none;">
-<input type="radio" id="lang-id-radio" name="language" style="display: none;">
-
-<div align="center">
-
-<label for="lang-en-radio" style="cursor: pointer; margin-right: 20px; padding: 8px 16px; border: 2px solid #0366d6; border-radius: 5px; background: #0366d6; color: white; font-weight: bold;">English</label>
-
-<label for="lang-id-radio" style="cursor: pointer; padding: 8px 16px; border: 2px solid #0366d6; border-radius: 5px; background: #f6f8fa; color: #0366d6;">Bahasa Indonesia</label>
+**[English](#english) | [Bahasa Indonesia](#bahasa-indonesia)**
 
 </div>
 
 ---
 
-<style>
-#lang-en-section {
-    display: block;
-}
-#lang-id-section {
-    display: none;
-}
-#lang-en-radio:checked ~ * #lang-en-section {
-    display: block !important;
-}
-#lang-en-radio:checked ~ * #lang-id-section {
-    display: none !important;
-}
-#lang-id-radio:checked ~ * #lang-en-section {
-    display: none !important;
-}
-#lang-id-radio:checked ~ * #lang-id-section {
-    display: block !important;
-}
-label:hover {
-    opacity: 0.8;
-}
-</style>
+<a id="english"></a>
 
-<div id="lang-en-section">
+## English
 
-## Overview
+### Overview
 
 AI Recruitment System is a web-based platform designed to streamline the hiring process for HR departments. The system leverages natural language processing and machine learning algorithms to automatically extract information from candidate resumes, analyze skills, and match candidates to job positions based on compatibility scores.
 
@@ -387,9 +354,13 @@ This project is licensed under the MIT License.
 
 </div>
 
-<div id="lang-id-section">
+---
 
-## Ringkasan
+<a id="bahasa-indonesia"></a>
+
+## Bahasa Indonesia
+
+### Ringkasan
 
 AI Recruitment System adalah platform berbasis web yang dirancang untuk menyederhanakan proses rekrutmen bagi departemen HR. Sistem ini memanfaatkan natural language processing dan algoritma machine learning untuk secara otomatis mengekstrak informasi dari resume kandidat, menganalisis keterampilan, dan mencocokkan kandidat dengan posisi pekerjaan berdasarkan skor kompatibilitas.
 
