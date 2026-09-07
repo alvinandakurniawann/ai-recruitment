@@ -39,11 +39,25 @@ class CandidateService:
         self.upload_folder = upload_folder
         self.file_validator = FileValidator()
         self.text_extractor = TextExtractor()
-        self.cv_parser = CVParserService()
-        self.skill_analyzer = SkillAnalyzer()
-        
+        # Heavy spacy models load lazily — only process_cv() needs them.
+        # (Constructing this service per request must stay cheap.)
+        self._cv_parser = None
+        self._skill_analyzer = None
+
         # Ensure upload folder exists
         os.makedirs(self.upload_folder, exist_ok=True)
+
+    @property
+    def cv_parser(self):
+        if self._cv_parser is None:
+            self._cv_parser = CVParserService()
+        return self._cv_parser
+
+    @property
+    def skill_analyzer(self):
+        if self._skill_analyzer is None:
+            self._skill_analyzer = SkillAnalyzer()
+        return self._skill_analyzer
     
     def process_cv(self, file_path: str, filename: str) -> Tuple[Dict, Optional[str]]:
         """
