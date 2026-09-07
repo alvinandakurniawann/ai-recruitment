@@ -25,6 +25,7 @@ jobs:
     if: github.event.schedule == '0 3 */5 * *' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
-      - run: curl -fsS "$SUPABASE_URL/auth/v1/health"
+      - run: curl -fsS -H "apikey: $SUPABASE_ANON_KEY" "$SUPABASE_URL/auth/v1/health"
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
