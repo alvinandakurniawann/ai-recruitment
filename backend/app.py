@@ -96,7 +96,11 @@ def create_app(config_name=None):
     return app
 
 
+# WSGI entrypoint for gunicorn-style servers (Render, Azure, Koyeb, Railway).
+# `gunicorn app:app` imports this module attribute.
+app = create_app()
+
+
 if __name__ == '__main__':
-    app = create_app()
     port = int(os.environ.get('PORT', 5001))
     app.run(host='0.0.0.0', port=port, debug=True)
