@@ -1,6 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import { AuthProvider } from './context/AuthContext';
+import Login from './components/Login';
+import Register from './components/Register';
 import Dashboard from './pages/Dashboard';
 import UploadCV from './pages/UploadCV';
 import CandidateList from './pages/CandidateList';
@@ -14,6 +17,7 @@ import './App.css';
 function App() {
   return (
     <Router>
+      <AuthProvider>
       <div className="App">
         <div className="app-layout">
           <Navbar />
@@ -28,11 +32,14 @@ function App() {
               <Route path="/jobs/new" element={<JobForm />} />
               <Route path="/jobs/:id" element={<JobDetail />} />
               <Route path="/jobs/:id/edit" element={<JobForm />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
         </div>
       </div>
+      </AuthProvider>
     </Router>
   );
 }

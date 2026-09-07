@@ -1,52 +1,57 @@
+/* TalentLens — NotFound korporat. Warna hanya via var(--*) tokens. */
+
 .not-found-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--bg);
+  font-family: var(--font-ui);
+  padding: 24px;
 }
 
 .not-found-content {
   text-align: center;
-  background: white;
-  padding: 60px 40px;
-  border-radius: 10px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  max-width: 500px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-2);
+  padding: 56px 48px;
+  max-width: 480px;
+  width: 100%;
 }
 
 .not-found-title {
-  font-size: 120px;
+  font-family: var(--font-mono);
+  font-size: 5.5rem;
   font-weight: 700;
-  color: #667eea;
-  margin: 0;
   line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--brand);
+  margin: 0;
 }
 
 .not-found-subtitle {
-  font-size: 32px;
-  color: #333;
-  margin: 20px 0;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 18px 0 0;
 }
 
 .not-found-text {
-  color: #666;
-  font-size: 16px;
-  margin-bottom: 30px;
+  color: var(--muted);
+  font-size: 0.92rem;
   line-height: 1.6;
+  margin: 10px 0 28px;
 }
 
-.btn-home {
-  display: inline-block;
-  padding: 12px 30px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: 600;
-  transition: opacity 0.3s;
-}
+@media (max-width: 520px) {
+  .not-found-content {
+    padding: 40px 28px;
+  }
 
-.btn-home:hover {
-  opacity: 0.9;
+  .not-found-title {
+    font-size: 4rem;
+  }
 }

@@ -1,0 +1,30 @@
+# Cegah Render (tidur 15 mnt) & Supabase (pause 7 hari) pada tier gratis.
+# Isi Secrets di GitHub repo > Settings > Secrets and variables > Actions:
+#   RENDER_BACKEND_URL : mis. https://ai-recruitment-backend.onrender.com (tanpa slash akhir)
+#   SUPABASE_URL       : mis. https://xyzcompany.supabase.co
+# Repo public = Actions gratis unlimited. Repo private = makan menit Actions,
+# pertimbangkan cron-job.org / UptimeRobot sebagai gantinya.
+name: keep-alive
+
+on:
+  schedule:
+    - cron: "*/10 * * * *" # tiap 10 menit -> Render
+    - cron: "0 3 */5 * *" # tiap 5 hari jam 03:00 UTC -> Supabase
+  workflow_dispatch:
+
+jobs:
+  ping-render:
+    if: github.event.schedule == '*/10 * * * *' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - run: curl -fsS "$RENDER_BACKEND_URL/health"
+        env:
+          RENDER_BACKEND_URL: ${{ secrets.RENDER_BACKEND_URL }}
+
+  ping-supabase:
+    if: github.event.schedule == '0 3 */5 * *' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - run: curl -fsS "$SUPABASE_URL/auth/v1/health"
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import candidateAPI from '../services/candidateAPI';
+import { PageHeader, EmptyState, Skeleton, StatusPill, Avatar, SkillChips, Icon } from '../components/ui';
 import './CandidateList.css';
 
 const CandidateList = () => {
@@ -19,13 +20,13 @@ const CandidateList = () => {
   const fetchCandidates = async () => {
     setLoading(true);
     setError('');
-    
+
     try {
       const params = { page, limit };
       if (statusFilter) {
         params.status = statusFilter;
       }
-      
+
       const data = await candidateAPI.getCandidates(params);
       setCandidates(data.candidates || []);
       setTotal(data.total || 0);
@@ -52,33 +53,24 @@ const CandidateList = () => {
 
   const totalPages = Math.ceil(total / limit);
 
-  const getStatusBadge = (status) => {
-    const statusClasses = {
-      completed: 'status-completed',
-      processing: 'status-processing',
-      failed: 'status-failed',
-    };
-    
-    return (
-      <span className={`status-badge ${statusClasses[status] || ''}`}>
-        {status}
-      </span>
-    );
-  };
-
   return (
-    <div className="candidate-list-container">
-      <div className="candidate-list-header">
-        <h2>Candidates</h2>
-        <Link to="/upload" className="btn-primary">
-          Upload New CV
-        </Link>
-      </div>
+    <div className="candidate-list">
+      <PageHeader
+        eyebrow="Talent pool"
+        title="Candidates"
+        sub={`${total} profiles`}
+        actions={
+          <Link to="/upload" className="btn btn-primary">
+            <Icon name="upload" /> Upload New CV
+          </Link>
+        }
+      />
 
-      <div className="filters">
+      <div className="filterbar">
         <label htmlFor="status-filter">Filter by Status:</label>
         <select
           id="status-filter"
+          className="select"
           value={statusFilter}
           onChange={(e) => {
             setStatusFilter(e.target.value);
@@ -92,21 +84,23 @@ const CandidateList = () => {
         </select>
       </div>
 
-      {error && <div className="error-message">{error}</div>}
+      {error && <div className="alert-error">{error}</div>}
 
       {loading ? (
-        <div className="loading">Loading candidates...</div>
+        <Skeleton lines={6} />
       ) : candidates.length === 0 ? (
-        <div className="no-data">
-          <p>No candidates found.</p>
-          <Link to="/upload" className="btn-secondary">
-            Upload your first CV
-          </Link>
-        </div>
+        <EmptyState
+          title="No candidates found."
+          action={
+            <Link to="/upload" className="btn btn-primary">
+              Upload your first CV
+            </Link>
+          }
+        />
       ) : (
         <>
-          <div className="candidate-table">
-            <table>
+          <div className="tl-table-wrap">
+            <table className="tl-table">
               <thead>
                 <tr>
                   <th>Name</th>
@@ -121,40 +115,38 @@ const CandidateList = () => {
               <tbody>
                 {candidates.map((candidate) => (
                   <tr key={candidate.id}>
-                    <td>{candidate.name || 'N/A'}</td>
+                    <td>
+                      <span className="cand-name">
+                        <Avatar name={candidate.name} />
+                        <span className="row-main">{candidate.name || 'N/A'}</span>
+                      </span>
+                    </td>
                     <td>{candidate.email || 'N/A'}</td>
                     <td>
-                      <div className="skills-preview">
-                        {candidate.skills && candidate.skills.length > 0
-                          ? candidate.skills
-                              .slice(0, 3)
-                              .map(skill => typeof skill === 'object' ? skill.name : skill)
-                              .join(', ') +
-                            (candidate.skills.length > 3 ? '...' : '')
-                          : 'N/A'}
-                      </div>
+                      <SkillChips skills={candidate.skills || []} max={3} />
                     </td>
-                    <td>{candidate.total_experience_years || 0} years</td>
-                    <td>{getStatusBadge(candidate.status)}</td>
-                    <td>
+                    <td className="mono">{candidate.total_experience_years || 0} years</td>
+                    <td><StatusPill status={candidate.status} /></td>
+                    <td className="mono">
                       {candidate.created_at
                         ? new Date(candidate.created_at).toLocaleDateString()
                         : 'N/A'}
                     </td>
                     <td>
-                      <Link
-                        to={`/candidates/${candidate.id}`}
-                        className="btn-view"
-                      >
-                        View
-                      </Link>
-                      <button
-                        onClick={() => handleDeleteCandidate(candidate.id, candidate.name)}
-                        className="btn-delete"
-                        style={{ marginLeft: '8px' }}
-                      >
-                        Delete
-                      </button>
+                      <span className="tbl-actions">
+                        <Link
+                          to={`/candidates/${candidate.id}`}
+                          className="btn btn-ghost btn-sm"
+                        >
+                          <Icon name="eye" /> View
+                        </Link>
+                        <button
+                          onClick={() => handleDeleteCandidate(candidate.id, candidate.name)}
+                          className="btn btn-danger-ghost btn-sm"
+                        >
+                          <Icon name="trash" /> Delete
+                        </button>
+                      </span>
                     </td>
                   </tr>
                 ))}
@@ -163,21 +155,21 @@ const CandidateList = () => {
           </div>
 
           {totalPages > 1 && (
-            <div className="pagination">
+            <div className="pager">
               <button
                 onClick={() => setPage(page - 1)}
                 disabled={page === 1}
-                className="btn-page"
+                className="btn btn-ghost btn-sm"
               >
                 Previous
               </button>
-              <span className="page-info">
+              <span className="info">
                 Page {page} of {totalPages} ({total} total)
               </span>
               <button
                 onClick={() => setPage(page + 1)}
                 disabled={page === totalPages}
-                className="btn-page"
+                className="btn btn-ghost btn-sm"
               >
                 Next
               </button>

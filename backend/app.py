@@ -6,7 +6,7 @@ Main application factory and initialization.
 import os
 from flask import Flask, jsonify
 from config import config
-from extensions import db, cors
+from extensions import db, cors, jwt
 
 
 def create_app(config_name=None):
@@ -30,6 +30,7 @@ def create_app(config_name=None):
     # Initialize extensions with app
     db.init_app(app)
     cors.init_app(app, origins=app.config['CORS_ORIGINS'])
+    jwt.init_app(app)
     
     # Create upload folder if it doesn't exist
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
@@ -39,11 +40,13 @@ def create_app(config_name=None):
     from routes.job_routes import job_bp
     from routes.matching_routes import matching_bp
     from routes.dashboard_routes import dashboard_bp
+    from routes.auth_routes import auth_bp
     
     app.register_blueprint(candidate_bp, url_prefix='/api/candidates')
     app.register_blueprint(job_bp, url_prefix='/api/jobs')
     app.register_blueprint(matching_bp, url_prefix='/api/matching')
     app.register_blueprint(dashboard_bp, url_prefix='/api/dashboard')
+    app.register_blueprint(auth_bp, url_prefix='/api/auth')
     
     # Health check endpoint
     @app.route('/health', methods=['GET'])
@@ -87,7 +90,7 @@ def create_app(config_name=None):
     
     # Import models to ensure they are registered with SQLAlchemy
     with app.app_context():
-        from models import Candidate, JobPosition, MatchResult
+        from models import Candidate, JobPosition, MatchResult, User
         db.create_all()
     
     return app

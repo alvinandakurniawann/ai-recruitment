@@ -1,3 +1,5 @@
+@import './styles/ui.css';
+
 * {
   margin: 0;
   padding: 0;
@@ -6,17 +8,40 @@
 
 .App {
   min-height: 100vh;
-  background: #f5f7fa;
+  background: var(--bg);
 }
 
 .app-layout {
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
+}
+
+/* Sidebar menempel kiri di desktop */
+.app-layout > nav {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  flex: none;
 }
 
 .main-content {
   flex: 1;
-  background: #f5f7fa;
-  min-height: calc(100vh - 60px);
+  min-width: 0;
+  padding: 28px 32px 48px;
+  max-width: 1320px;
+}
+
+@media (max-width: 900px) {
+  .app-layout {
+    flex-direction: column;
+  }
+
+  .app-layout > nav {
+    position: sticky;
+    height: auto;
+  }
+
+  .main-content {
+    padding: 18px 14px 40px;
+  }
 }

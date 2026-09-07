@@ -1,204 +1,95 @@
-.job-list-container {
+.jl-wrap {
   max-width: 1200px;
-  margin: 40px auto;
-  padding: 20px;
+  margin: 0 auto;
+  padding: 24px;
 }
 
-.job-list-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
+.jl-wrap .mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
 }
 
-.job-list-header h2 {
-  color: #333;
-  margin: 0;
-}
-
-.jobs-grid {
+.jl-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
 }
 
-.job-card {
-  background: white;
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
+.jl-card {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.job-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.job-card-header {
+.jl-card-head {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 15px;
+  gap: 12px;
 }
 
-.job-card h3 {
-  color: #333;
+.jl-card-head h3 {
   margin: 0;
-  font-size: 20px;
   flex: 1;
+  font-size: 1.05rem;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+  color: var(--ink);
 }
 
-.job-status {
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  margin-left: 10px;
-}
-
-.job-status.active {
-  background: #d4edda;
-  color: #155724;
-}
-
-.job-status.inactive {
-  background: #f8d7da;
-  color: #721c24;
-}
-
-.job-description {
-  color: #666;
+.jl-desc {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 0.88rem;
   line-height: 1.6;
-  margin-bottom: 20px;
   min-height: 60px;
 }
 
-.job-info {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
-  padding: 15px;
-  background: #f8f9fa;
-  border-radius: 5px;
+.jl-meta {
+  display: grid;
+  gap: 8px;
+  padding: 12px 14px;
+  background: var(--navy-50);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-s);
 }
 
-.info-item {
+.jl-meta-row {
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.85rem;
+  color: var(--ink-2);
 }
 
-.info-label {
-  font-weight: 600;
-  color: #666;
+.jl-skills {
+  align-items: flex-start;
 }
 
-.info-value {
-  color: #333;
+.jl-label {
+  font-weight: 700;
+  font-size: 0.76rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  flex: none;
 }
 
-.job-actions {
+.jl-actions {
   display: flex;
-  gap: 10px;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 4px;
 }
 
-.btn-view,
-.btn-edit,
-.btn-delete {
-  flex: 1;
-  padding: 10px;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 5px;
-  font-size: 14px;
-  font-weight: 600;
-  transition: background 0.3s;
-  border: none;
-  cursor: pointer;
-}
+@media (max-width: 640px) {
+  .jl-wrap {
+    padding: 16px;
+  }
 
-.btn-view {
-  background: #667eea;
-  color: white;
-}
-
-.btn-view:hover {
-  background: #5568d3;
-}
-
-.btn-edit {
-  background: #6c757d;
-  color: white;
-}
-
-.btn-edit:hover {
-  background: #5a6268;
-}
-
-.btn-delete {
-  background: #dc3545;
-  color: white;
-}
-
-.btn-delete:hover {
-  background: #c82333;
-}
-
-.btn-primary {
-  padding: 10px 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: 600;
-  transition: opacity 0.3s;
-}
-
-.btn-primary:hover {
-  opacity: 0.9;
-}
-
-.btn-secondary {
-  padding: 10px 20px;
-  background: #6c757d;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: 600;
-  transition: background 0.3s;
-}
-
-.btn-secondary:hover {
-  background: #5a6268;
-}
-
-.loading {
-  text-align: center;
-  padding: 40px;
-  color: #666;
-}
-
-.no-data {
-  text-align: center;
-  padding: 60px 20px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.no-data p {
-  color: #666;
-  margin-bottom: 20px;
-  font-size: 16px;
-}
-
-.error-message {
-  background: #fee;
-  color: #c33;
-  padding: 15px;
-  border-radius: 5px;
-  margin-bottom: 20px;
+  .jl-grid {
+    grid-template-columns: 1fr;
+  }
 }

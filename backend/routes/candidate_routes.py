@@ -111,6 +111,16 @@ def upload_cv():
                 }
             }), 500
         
+        # Archive the original file to Supabase Storage when configured
+        # (free tier). Storage failure never blocks the upload response.
+        cv_url = None
+        try:
+            from utils.storage import upload_cv_to_storage
+            with open(file_path, 'rb') as f:
+                cv_url = upload_cv_to_storage(f.read(), f'{candidate.id}/{secure_name}', secure_name)
+        except Exception as e:
+            print(f"Warning: Supabase Storage upload skipped: {str(e)}")
+
         # Clean up uploaded file after successful processing
         # (we store the text in database, don't need the file anymore)
         candidate_service.delete_file(file_path)
@@ -131,7 +141,8 @@ def upload_cv():
             'candidate_id': candidate.id,
             'status': candidate.status,
             'message': 'CV uploaded and processed successfully',
-            'matches_calculated': match_count
+            'matches_calculated': match_count,
+            'cv_url': cv_url,
         }
         
         # Add warnings if extraction had issues

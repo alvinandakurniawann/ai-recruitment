@@ -35,3 +35,17 @@ CLEANUP_REPORT.md
 *.pdf
 .env
 *.md
+
+# python
+backend/venv/
+__pycache__/
+*.pyc
+
+# local runtime (recreated / ephemeral)
+backend/instance/
+backend/uploads/
+*.log
+server.log
+frontend.log
+build_output.txt
+backend/mock_api.py

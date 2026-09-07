@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams, Link } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import jobAPI from '../services/jobAPI';
+import { BackLink, Skeleton } from '../components/ui';
 import './JobForm.css';
 
 const JobForm = () => {
@@ -95,28 +96,29 @@ const JobForm = () => {
   };
 
   if (fetchingJob) {
-    return <div className="loading">Loading job details...</div>;
+    return (
+      <div className="jf-wrap">
+        <Skeleton lines={5} />
+      </div>
+    );
   }
 
   return (
-    <div className="job-form-container">
-      <div className="job-form-card">
-        <div className="form-header">
-          <Link to="/jobs" className="btn-back">
-            ← Back to Jobs
-          </Link>
-          <h2>{isEditMode ? 'Edit Job Position' : 'Create New Job Position'}</h2>
-        </div>
+    <div className="jf-wrap">
+      <BackLink to="/jobs">Back to Jobs</BackLink>
+      <div className="card jf-card">
+        <h2>{isEditMode ? 'Edit Job Position' : 'Create New Job Position'}</h2>
 
-        {error && <div className="error-message">{error}</div>}
+        {error && <div className="alert-error">{error}</div>}
 
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
+          <div className="field">
             <label htmlFor="title">Job Title *</label>
             <input
               type="text"
               id="title"
               name="title"
+              className="input"
               value={formData.title}
               onChange={handleChange}
               required
@@ -124,11 +126,12 @@ const JobForm = () => {
             />
           </div>
 
-          <div className="form-group">
+          <div className="field">
             <label htmlFor="description">Job Description *</label>
             <textarea
               id="description"
               name="description"
+              className="textarea"
               value={formData.description}
               onChange={handleChange}
               required
@@ -137,12 +140,13 @@ const JobForm = () => {
             />
           </div>
 
-          <div className="form-group">
+          <div className="field">
             <label htmlFor="required_skills">Required Skills *</label>
             <input
               type="text"
               id="required_skills"
               name="required_skills"
+              className="input"
               value={formData.required_skills}
               onChange={handleChange}
               required
@@ -151,12 +155,13 @@ const JobForm = () => {
             <small className="form-hint">Enter skills separated by commas</small>
           </div>
 
-          <div className="form-group">
+          <div className="field">
             <label htmlFor="preferred_skills">Preferred Skills</label>
             <input
               type="text"
               id="preferred_skills"
               name="preferred_skills"
+              className="input"
               value={formData.preferred_skills}
               onChange={handleChange}
               placeholder="e.g., Docker, AWS, Kubernetes (comma-separated)"
@@ -164,13 +169,14 @@ const JobForm = () => {
             <small className="form-hint">Enter skills separated by commas</small>
           </div>
 
-          <div className="form-row">
-            <div className="form-group">
+          <div className="form-row-2">
+            <div className="field">
               <label htmlFor="min_experience_years">Minimum Experience (years)</label>
               <input
                 type="number"
                 id="min_experience_years"
                 name="min_experience_years"
+                className="input"
                 value={formData.min_experience_years}
                 onChange={handleChange}
                 min="0"
@@ -178,11 +184,12 @@ const JobForm = () => {
               />
             </div>
 
-            <div className="form-group">
+            <div className="field">
               <label htmlFor="education_level">Education Level</label>
               <select
                 id="education_level"
                 name="education_level"
+                className="select"
                 value={formData.education_level}
                 onChange={handleChange}
               >
@@ -196,18 +203,18 @@ const JobForm = () => {
             </div>
           </div>
 
-          <div className="form-actions">
+          <div className="jf-actions">
             <button
               type="button"
               onClick={() => navigate('/jobs')}
-              className="btn-cancel"
+              className="btn btn-ghost"
               disabled={loading}
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="btn-submit"
+              className="btn btn-primary"
               disabled={loading}
             >
               {loading 

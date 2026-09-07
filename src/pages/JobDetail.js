@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import jobAPI from '../services/jobAPI';
+import { BackLink, StatusPill, Avatar, ScoreBar, Skeleton, EmptyState, Icon, matchTone } from '../components/ui';
 import './JobDetail.css';
 
 const JobDetail = () => {
@@ -67,154 +68,139 @@ const JobDetail = () => {
     }
   };
 
-  const getMatchScoreColor = (score) => {
-    if (score >= 80) return '#4caf50';
-    if (score >= 60) return '#ff9800';
-    return '#f44336';
-  };
-
-  const getQualificationBadge = (status) => {
-    const statusClasses = {
-      'Qualified': 'qualification-qualified',
-      'Potentially Qualified': 'qualification-potential',
-      'Not Qualified': 'qualification-not',
-    };
-    
-    return (
-      <span className={`qualification-badge ${statusClasses[status] || ''}`}>
-        {status}
-      </span>
-    );
-  };
-
   if (loading) {
-    return <div className="loading">Loading job details...</div>;
+    return (
+      <div className="jd-wrap">
+        <Skeleton lines={5} />
+      </div>
+    );
   }
 
   if (error) {
     return (
-      <div className="error-container">
-        <div className="error-message">{error}</div>
-        <Link to="/jobs" className="btn-back">
-          Back to Jobs
-        </Link>
+      <div className="jd-wrap">
+        <BackLink to="/jobs">Back to Jobs</BackLink>
+        <div className="alert-error">{error}</div>
       </div>
     );
   }
 
   if (!job) {
     return (
-      <div className="error-container">
-        <p>Job not found</p>
-        <Link to="/jobs" className="btn-back">
-          Back to Jobs
-        </Link>
+      <div className="jd-wrap">
+        <EmptyState
+          title="Job not found"
+          action={<BackLink to="/jobs">Back to Jobs</BackLink>}
+        />
       </div>
     );
   }
 
   return (
-    <div className="job-detail-container">
-      <div className="detail-header">
-        <Link to="/jobs" className="btn-back">
-          ← Back to Jobs
-        </Link>
-        <div className="header-actions">
-          <Link to={`/jobs/${id}/edit`} className="btn-edit">
-            Edit Job
+    <div className="jd-wrap">
+      <div className="jd-topbar">
+        <BackLink to="/jobs">Back to Jobs</BackLink>
+        <div className="jd-top-actions">
+          <Link to={`/jobs/${id}/edit`} className="btn btn-ghost btn-sm">
+            <Icon name="edit" /> Edit Job
           </Link>
-          <button onClick={handleDeleteJob} className="btn-delete">
-            Delete Job
+          <button onClick={handleDeleteJob} className="btn btn-danger-ghost btn-sm">
+            <Icon name="trash" /> Delete Job
           </button>
         </div>
       </div>
 
-      <div className="job-detail-card">
-        <div className="job-header">
+      <div className="card jd-card">
+        <div className="jd-head">
           <div>
             <h2>{job.title}</h2>
-            <span className={`job-status ${job.is_active ? 'active' : 'inactive'}`}>
-              {job.is_active ? 'Active' : 'Inactive'}
-            </span>
+            <div className="jd-sub">
+              <StatusPill status={job.is_active ? 'Active' : 'Inactive'} />
+              <span className="mono">
+                {job.created_at ? new Date(job.created_at).toLocaleDateString() : 'N/A'}
+              </span>
+            </div>
           </div>
         </div>
 
-        <div className="job-section">
+        <div className="jd-section">
           <h3>Description</h3>
-          <p className="job-description">{job.description || 'No description provided'}</p>
+          <p className="jd-desc">{job.description || 'No description provided'}</p>
         </div>
 
-        <div className="job-requirements">
-          <div className="requirement-section">
+        <div className="jd-req-grid">
+          <div className="jd-req">
             <h3>Required Skills</h3>
-            <div className="skills-list">
+            <div>
               {job.required_skills && job.required_skills.length > 0 ? (
                 job.required_skills.map((skill, index) => (
-                  <span key={index} className="skill-tag required">
+                  <span key={index} className="chip is-req">
                     {skill}
                   </span>
                 ))
               ) : (
-                <p className="no-data-text">No required skills specified</p>
+                <p className="jd-muted">No required skills specified</p>
               )}
             </div>
           </div>
 
-          <div className="requirement-section">
+          <div className="jd-req">
             <h3>Preferred Skills</h3>
-            <div className="skills-list">
+            <div>
               {job.preferred_skills && job.preferred_skills.length > 0 ? (
                 job.preferred_skills.map((skill, index) => (
-                  <span key={index} className="skill-tag preferred">
+                  <span key={index} className="chip is-pref">
                     {skill}
                   </span>
                 ))
               ) : (
-                <p className="no-data-text">No preferred skills specified</p>
+                <p className="jd-muted">No preferred skills specified</p>
               )}
             </div>
           </div>
         </div>
 
-        <div className="job-info-grid">
-          <div className="info-item">
-            <span className="info-label">Minimum Experience:</span>
-            <span className="info-value">{job.min_experience_years || 0} years</span>
+        <div className="jd-info">
+          <div className="jd-info-item">
+            <span className="jd-label">Minimum Experience:</span>
+            <span className="jd-value">{job.min_experience_years || 0} years</span>
           </div>
-          <div className="info-item">
-            <span className="info-label">Education Level:</span>
-            <span className="info-value">{job.education_level || 'Not specified'}</span>
+          <div className="jd-info-item">
+            <span className="jd-label">Education Level:</span>
+            <span className="jd-value">{job.education_level || 'Not specified'}</span>
           </div>
-          <div className="info-item">
-            <span className="info-label">Created:</span>
-            <span className="info-value">
+          <div className="jd-info-item">
+            <span className="jd-label">Created:</span>
+            <span className="jd-value mono">
               {job.created_at ? new Date(job.created_at).toLocaleDateString() : 'N/A'}
             </span>
           </div>
         </div>
       </div>
 
-      <div className="candidates-section">
-        <h3>Matched Candidates</h3>
+      <div className="card jd-card">
+        <h3 className="jd-cands-title">Matched Candidates</h3>
         
-        <div className="candidates-filters">
-          <div className="filter-group">
+        <div className="filterbar">
+          <div className="jd-filter">
             <label htmlFor="min-score">Minimum Score:</label>
             <input
               type="range"
               id="min-score"
+              className="slider"
               min="0"
               max="100"
               value={minScore}
               onChange={(e) => setMinScore(parseInt(e.target.value))}
             />
-            <span className="score-value">{minScore}</span>
+            <span className="mono">{minScore}</span>
           </div>
           
-          <div className="filter-group">
+          <div className="jd-filter">
             <label htmlFor="status-filter">Status:</label>
             <select
               id="status-filter"
+              className="select"
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
             >
@@ -227,48 +213,40 @@ const JobDetail = () => {
         </div>
 
         {loadingCandidates ? (
-          <div className="loading-text">Loading candidates...</div>
+          <div className="jd-muted">Loading candidates...</div>
         ) : candidates.length === 0 ? (
-          <div className="no-candidates">
+          <div className="empty">
             <p>No candidates match the current filters.</p>
           </div>
         ) : (
-          <div className="candidates-list">
+          <div className="jd-cands">
             {candidates.map((candidate, index) => (
-              <div key={index} className="candidate-card">
-                <div className="candidate-header">
-                  <div>
-                    <Link to={`/candidates/${candidate.candidate_id}`} className="candidate-name">
+              <div key={index} className="jd-cand" data-tone={matchTone(candidate.match_score, candidate.skill_match_score || candidate.skill_match)}>
+                <div className="jd-cand-head">
+                  <Avatar name={candidate.candidate_name} />
+                  <div className="jd-cand-id">
+                    <Link to={`/candidates/${candidate.candidate_id}`} className="jd-cand-name">
                       {candidate.candidate_name || 'Unknown'}
                     </Link>
-                    {getQualificationBadge(candidate.status)}
+                    <StatusPill status={candidate.status} />
                   </div>
-                  <div
-                    className="match-score-circle"
-                    style={{ background: getMatchScoreColor(candidate.match_score) }}
-                  >
-                    {Math.round(candidate.match_score)}
+                  <div className="jd-cand-score">
+                    <ScoreBar value={candidate.match_score} />
                   </div>
                 </div>
                 
-                <div className="candidate-breakdown">
-                  <div className="breakdown-item">
-                    <span className="breakdown-label">Skills:</span>
-                    <span className="breakdown-value">
-                      {Math.round(candidate.skill_match_score || candidate.skill_match || 0)}
-                    </span>
+                <div className="jd-break">
+                  <div className="jd-break-item">
+                    <span className="jd-label">Skills:</span>
+                    <ScoreBar value={candidate.skill_match_score || candidate.skill_match || 0} />
                   </div>
-                  <div className="breakdown-item">
-                    <span className="breakdown-label">Experience:</span>
-                    <span className="breakdown-value">
-                      {Math.round(candidate.experience_match_score || candidate.experience_match || 0)}
-                    </span>
+                  <div className="jd-break-item">
+                    <span className="jd-label">Experience:</span>
+                    <ScoreBar value={candidate.experience_match_score || candidate.experience_match || 0} />
                   </div>
-                  <div className="breakdown-item">
-                    <span className="breakdown-label">Education:</span>
-                    <span className="breakdown-value">
-                      {Math.round(candidate.education_match_score || candidate.education_match || 0)}
-                    </span>
+                  <div className="jd-break-item">
+                    <span className="jd-label">Education:</span>
+                    <ScoreBar value={candidate.education_match_score || candidate.education_match || 0} />
                   </div>
                 </div>
               </div>

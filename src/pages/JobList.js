@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import jobAPI from '../services/jobAPI';
+import { PageHeader, EmptyState, Skeleton, StatusPill, SkillChips, Icon } from '../components/ui';
 import './JobList.css';
 
 const JobList = () => {
@@ -41,70 +42,68 @@ const JobList = () => {
   };
 
   return (
-    <div className="job-list-container">
-      <div className="job-list-header">
-        <h2>Job Positions</h2>
-        <Link to="/jobs/new" className="btn-primary">
-          Create New Job
-        </Link>
-      </div>
+    <div className="jl-wrap">
+      <PageHeader
+        eyebrow="Hiring"
+        title="Job Positions"
+        actions={
+          <Link to="/jobs/new" className="btn btn-primary">
+            <Icon name="plus" /> Create New Job
+          </Link>
+        }
+      />
 
-      {error && <div className="error-message">{error}</div>}
+      {error && <div className="alert-error">{error}</div>}
 
       {loading ? (
-        <div className="loading">Loading job positions...</div>
+        <Skeleton lines={3} />
       ) : jobs.length === 0 ? (
-        <div className="no-data">
-          <p>No job positions found.</p>
-          <Link to="/jobs/new" className="btn-secondary">
-            Create your first job position
-          </Link>
-        </div>
+        <EmptyState
+          title="No job positions found."
+          action={
+            <Link to="/jobs/new" className="btn btn-primary">
+              Create your first job position
+            </Link>
+          }
+        />
       ) : (
-        <div className="jobs-grid">
+        <div className="jl-grid">
           {jobs.map((job) => (
-            <div key={job.id} className="job-card">
-              <div className="job-card-header">
+            <div key={job.id} className="card jl-card">
+              <div className="jl-card-head">
                 <h3>{job.title}</h3>
-                <span className={`job-status ${job.is_active ? 'active' : 'inactive'}`}>
-                  {job.is_active ? 'Active' : 'Inactive'}
-                </span>
+                <StatusPill status={job.is_active ? 'Active' : 'Inactive'} />
               </div>
               
-              <p className="job-description">
+              <p className="jl-desc">
                 {job.description && job.description.length > 150
                   ? job.description.substring(0, 150) + '...'
                   : job.description || 'No description'}
               </p>
               
-              <div className="job-info">
-                <div className="info-item">
-                  <span className="info-label">Required Skills:</span>
-                  <span className="info-value">
-                    {job.required_skills && job.required_skills.length > 0
-                      ? job.required_skills.slice(0, 3).join(', ') +
-                        (job.required_skills.length > 3 ? '...' : '')
-                      : 'None specified'}
-                  </span>
+              <div className="jl-meta">
+                <div className="jl-meta-row jl-skills">
+                  <span className="jl-label">Required Skills:</span>
+                  <SkillChips skills={job.required_skills || []} max={3} />
                 </div>
                 
-                <div className="info-item">
-                  <span className="info-label">Min Experience:</span>
-                  <span className="info-value">
+                <div className="jl-meta-row">
+                  <span className="jl-label">Min Experience:</span>
+                  <span className="mono">
                     {job.min_experience_years || 0} years
                   </span>
                 </div>
                 
-                <div className="info-item">
-                  <span className="info-label">Candidates:</span>
-                  <span className="info-value">
+                <div className="jl-meta-row">
+                  <span className="jl-label">Candidates:</span>
+                  <span className="mono">
                     {job.candidate_count || 0}
                   </span>
                 </div>
                 
-                <div className="info-item">
-                  <span className="info-label">Created:</span>
-                  <span className="info-value">
+                <div className="jl-meta-row">
+                  <span className="jl-label">Created:</span>
+                  <span className="mono">
                     {job.created_at
                       ? new Date(job.created_at).toLocaleDateString()
                       : 'N/A'}
@@ -112,18 +111,18 @@ const JobList = () => {
                 </div>
               </div>
               
-              <div className="job-actions">
-                <Link to={`/jobs/${job.id}`} className="btn-view">
-                  View Details
+              <div className="jl-actions">
+                <Link to={`/jobs/${job.id}`} className="btn btn-ghost btn-sm">
+                  <Icon name="eye" /> View Details
                 </Link>
-                <Link to={`/jobs/${job.id}/edit`} className="btn-edit">
-                  Edit
+                <Link to={`/jobs/${job.id}/edit`} className="btn btn-ghost btn-sm">
+                  <Icon name="edit" /> Edit
                 </Link>
                 <button 
                   onClick={() => handleDeleteJob(job.id, job.title)} 
-                  className="btn-delete"
+                  className="btn btn-danger-ghost btn-sm"
                 >
-                  Delete
+                  <Icon name="trash" /> Delete
                 </button>
               </div>
             </div>

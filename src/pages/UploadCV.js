@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import candidateAPI from '../services/candidateAPI';
+import { PageHeader, Icon } from '../components/ui';
 import './UploadCV.css';
 
 const UploadCV = () => {
@@ -51,7 +52,7 @@ const UploadCV = () => {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
-    
+
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       handleFileChange(e.dataTransfer.files[0]);
     }
@@ -60,14 +61,14 @@ const UploadCV = () => {
   const handleFileChange = (selectedFile) => {
     setError('');
     setSuccess('');
-    
+
     const validationError = validateFile(selectedFile);
     if (validationError) {
       setError(validationError);
       setFile(null);
       return;
     }
-    
+
     setFile(selectedFile);
   };
 
@@ -97,7 +98,7 @@ const UploadCV = () => {
       setSuccess(`CV uploaded successfully! Candidate ID: ${result.candidate_id}`);
       setFile(null);
       setUploadProgress(0);
-      
+
       // Redirect to candidate detail page after 2 seconds
       setTimeout(() => {
         navigate(`/candidates/${result.candidate_id}`);
@@ -111,18 +112,19 @@ const UploadCV = () => {
   };
 
   return (
-    <div className="upload-cv-container">
-      <div className="upload-cv-card">
-        <h2>Upload Candidate CV</h2>
-        <p className="upload-description">
-          Upload a CV in PDF, DOCX, or TXT format (max 5MB)
-        </p>
+    <div className="upload-page">
+      <PageHeader
+        eyebrow="Intake"
+        title="Upload Candidate CV"
+        sub="Upload a CV in PDF, DOCX, or TXT format (max 5MB)"
+      />
 
-        {error && <div className="error-message">{error}</div>}
-        {success && <div className="success-message">{success}</div>}
+      <div className="card upload-card">
+        {error && <div className="alert-error">{error}</div>}
+        {success && <div className="alert-ok">{success}</div>}
 
         <div
-          className={`drop-zone ${dragActive ? 'drag-active' : ''} ${file ? 'has-file' : ''}`}
+          className={`drop-zone${dragActive ? ' is-active' : ''}${file ? ' has-file' : ''}`}
           onDragEnter={handleDrag}
           onDragLeave={handleDrag}
           onDragOver={handleDrag}
@@ -135,24 +137,24 @@ const UploadCV = () => {
             onChange={handleFileInput}
             style={{ display: 'none' }}
           />
-          
+
           {!file ? (
             <label htmlFor="file-input" className="drop-zone-label">
-              <div className="upload-icon">📄</div>
+              <span className="dz-icon"><Icon name="upload" size={22} /></span>
               <p>Drag and drop your CV here</p>
               <p className="or-text">or</p>
-              <button type="button" className="btn-select-file">
+              <button type="button" className="btn btn-ghost btn-sm">
                 Select File
               </button>
             </label>
           ) : (
             <div className="file-info">
-              <div className="file-icon">✓</div>
-              <p className="file-name">{file.name}</p>
+              <span className="dz-icon"><Icon name="doc" size={22} /></span>
+              <p className="file-name mono">{file.name}</p>
               <p className="file-size">{(file.size / 1024).toFixed(2)} KB</p>
               <button
                 type="button"
-                className="btn-remove-file"
+                className="btn btn-ghost btn-sm"
                 onClick={() => setFile(null)}
               >
                 Remove
@@ -169,12 +171,12 @@ const UploadCV = () => {
                 style={{ width: `${uploadProgress}%` }}
               ></div>
             </div>
-            <p className="progress-text">{uploadProgress}% uploaded</p>
+            <p className="progress-text mono">{uploadProgress}% uploaded</p>
           </div>
         )}
 
         <button
-          className="btn-upload"
+          className="btn btn-primary btn-upload"
           onClick={handleUpload}
           disabled={!file || uploading}
         >

@@ -15,6 +15,13 @@ class Config:
     
     # Flask Configuration
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev-secret-key-change-in-production'
+    JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY') or 'dev-jwt-key-change-in-production'
+
+    # Connection pool health (matters for pooled Supabase connections)
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        'pool_pre_ping': True,
+        'pool_recycle': 300,
+    }
     
     # Database Configuration
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///recruitment.db'
@@ -25,6 +32,11 @@ class Config:
     MAX_FILE_SIZE = int(os.environ.get('MAX_FILE_SIZE', 5 * 1024 * 1024))  # 5MB default
     UPLOAD_FOLDER = os.environ.get('UPLOAD_FOLDER') or 'uploads'
     ALLOWED_EXTENSIONS = {'pdf', 'docx', 'txt'}
+
+    # Supabase Storage (original CVs, free 1 GB). Unset = local-only processing.
+    SUPABASE_URL = os.environ.get('SUPABASE_URL')
+    SUPABASE_SERVICE_KEY = os.environ.get('SUPABASE_SERVICE_KEY')
+    SUPABASE_CV_BUCKET = os.environ.get('SUPABASE_CV_BUCKET', 'cvs')
     
     # CORS Configuration
     CORS_ORIGINS = os.environ.get('CORS_ORIGINS', 'http://localhost:3000,https://ai-recruitment-re.vercel.app').split(',')

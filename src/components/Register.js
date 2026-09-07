@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { Icon } from './ui';
 import './Register.css';
 
 const Register = () => {
@@ -25,9 +26,9 @@ const Register = () => {
       return;
     }
     
-    // Validate password length
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters long');
+    // Must match backend rule: min 8 chars, upper + lower + digit
+    if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password)) {
+      setError('Password must be at least 8 characters with uppercase, lowercase, and a digit');
       return;
     }
     
@@ -49,17 +50,28 @@ const Register = () => {
 
   return (
     <div className="register-container">
-      <div className="register-card">
-        <h2>AI Recruitment System</h2>
+      <aside className="auth-brand">
+        <div className="auth-mono">TL</div>
+        <div className="auth-name">TalentLens</div>
+        <div className="auth-sub">AI Recruitment</div>
+        <p className="auth-pos">Platform rekrutmen yang membantu tim HR menilai kandidat lebih cepat dan objektif.</p>
+        <ul className="auth-trust">
+          <li><Icon name="check" size={15} /> Screening CV konsisten berbasis skor</li>
+          <li><Icon name="check" size={15} /> Data kandidat tersimpan aman dan terpusat</li>
+          <li><Icon name="check" size={15} /> Alur rekrutmen terdokumentasi rapi</li>
+        </ul>
+      </aside>
+      <div className="register-card card">
         <h3>Create Account</h3>
         
-        {error && <div className="error-message">{error}</div>}
-        {success && <div className="success-message">Registration successful! Redirecting to login...</div>}
+        {error && <div className="alert-error">{error}</div>}
+        {success && <div className="alert-ok">Registration successful! Redirecting to login...</div>}
         
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
+          <div className="field">
             <label htmlFor="email">Email</label>
             <input
+              className="input"
               type="email"
               id="email"
               value={email}
@@ -69,22 +81,25 @@ const Register = () => {
             />
           </div>
           
-          <div className="form-group">
+          <div className="field">
             <label htmlFor="password">Password</label>
             <input
+              className="input"
               type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
               placeholder="Enter your password"
-              minLength="6"
+              minLength="8"
             />
+            <small className="form-hint">Min 8 characters with uppercase, lowercase, and a digit</small>
           </div>
           
-          <div className="form-group">
+          <div className="field">
             <label htmlFor="confirmPassword">Confirm Password</label>
             <input
+              className="input"
               type="password"
               id="confirmPassword"
               value={confirmPassword}
@@ -94,9 +109,10 @@ const Register = () => {
             />
           </div>
           
-          <div className="form-group">
+          <div className="field">
             <label htmlFor="role">Role</label>
             <select
+              className="select"
               id="role"
               value={role}
               onChange={(e) => setRole(e.target.value)}
@@ -107,12 +123,12 @@ const Register = () => {
             </select>
           </div>
           
-          <button type="submit" disabled={loading || success} className="btn-primary">
+          <button type="submit" disabled={loading || success} className="btn btn-primary auth-submit">
             {loading ? 'Creating Account...' : 'Register'}
           </button>
         </form>
         
-        <p className="login-link">
+        <p className="auth-switch">
           Already have an account? <Link to="/login">Login here</Link>
         </p>
       </div>

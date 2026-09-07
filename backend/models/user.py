@@ -30,9 +30,6 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
     
-    # Relationships
-    job_positions = db.relationship('JobPosition', backref='creator', lazy='dynamic', cascade='all, delete-orphan')
-    
     def __init__(self, email, password, role='HR'):
         """
         Initialize a new User instance.
